@@ -7,8 +7,7 @@
 
 const validator = {
     isEmail: function(value){
-        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return regex.test(value.trim());
+        return testRegex(value.trim(), /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     },
     isGiven: function(value){
         return value.trim().length > 0
@@ -17,21 +16,21 @@ const validator = {
         return value.trim().length >= length;
     },
     isWord: function(value){
-        const regex = /^[A-z]*$/;
-        return regex.test(value.trim());
+        return testRegex(value.trim(), /^[A-z]*$/);
     },
     isNumber: function(value){
-        const regex = /^[0-9]*$/;
-        return regex.test(value.trim());
+        return testRegex(value.trim(), /^[0-9]*$/);
     },
     isTelFr: function(value){
-        const regex = /(\+\d+(\s|-|.))?0\d(\s|-|.)?(\d{2}(\s|-|.)?){4}/;
-        return regex.test(value.trim());
+        return testRegex(value.trim(), /(\+\d+(\s|-|.))?0\d(\s|-|.)?(\d{2}(\s|-|.)?){4}/);
     },
     doContainSpecialChars: function(value){
-        const regex = /[^A-Za-z0-9\s]/;
-        return regex.test(value.trim());
+        return testRegex(value.trim(), /[^A-Za-z0-9\s]/);
     }
 };
+
+function testRegex(value, exp){
+    return exp.test(value);
+}
 
 module.exports = validator;
